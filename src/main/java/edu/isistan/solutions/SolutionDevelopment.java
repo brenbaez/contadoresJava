@@ -12,18 +12,23 @@ import java.util.stream.IntStream;
 
 public class SolutionDevelopment implements IProblemSolver {
 
-    private Map<Integer, Integer> ocurrences = new HashMap<>();
+    private Map<Integer, Integer> ocurrences;
+    private ArrayList<Pair> result;
+
+    public SolutionDevelopment() {
+        ocurrences = new HashMap<>();
+        result = new ArrayList<>();
+    }
 
     @Override
     public ArrayList<Pair> isSumIn(int[] data, int target) {
-        ArrayList<Pair> result = new ArrayList<>();
         fullfillOcurrences(data);
         ArrayList<Integer> elements = obtainValuesNoDuplicated(data);
-        elements.forEach(number -> calculatePairs(number, target, result));
+        elements.forEach(number -> calculatePairs(number, target));
         return result;
     }
 
-    private void calculatePairs(int number, int target, List<Pair> result) {
+    private void calculatePairs(int number, int target) {
         if (number > target) return;
         int objective = target - number;
         if (!ocurrences.containsKey(objective)) return;
