@@ -34,7 +34,7 @@ public class Solutions {
             times[i] = start;
         }
 
-        long sum = Arrays.stream(times).reduce(0, Long::sum);
+        long sum = Arrays.stream(times).sum();
 
         System.out.printf("%nTiempo promedio: %d%n", sum / repetitions);
     }

@@ -3,6 +3,7 @@ package edu.isistan.solutions;
 import edu.isistan.IProblemSolver;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class SolutionNaive implements IProblemSolver {
@@ -10,6 +11,7 @@ public class SolutionNaive implements IProblemSolver {
     public List<Pair> isSumIn(int[] data, int sum) {
 
         List<Pair> pairs = new ArrayList<>();
+        Arrays.sort(data);
 
         for (int i = 0; i < data.length; i++) {
             for (int j = i + 1; j < data.length; j++) {

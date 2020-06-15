@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class SolutionDevelopment implements IProblemSolver {
@@ -22,35 +21,25 @@ public class SolutionDevelopment implements IProblemSolver {
     @Override
     public ArrayList<Pair> isSumIn(int[] data, int target) {
         fullfillOcurrences(data);
-        ArrayList<Integer> elements = obtainValuesNoDuplicated(data);
-        elements.stream()
+        Arrays.stream(data)
                 .filter(number -> number <= target / 2)
                 .forEach(number -> calculatePairs(number, target - number));
         return result;
     }
 
     private void calculatePairs(int number, int objective) {
-        if (!ocurrences.containsKey(objective)) return;
-        int freqObj = ocurrences.get(objective);
-        int freqNum = ocurrences.get(number);
-        int frequency = objective != number ? freqObj * freqNum : IntStream.range(0, freqObj).sum();
+        if (!ocurrences.containsKey(objective) || ocurrences.get(objective) == 0) return;
+        int frequency = getFrequency(number, objective);
         IntStream.range(0, frequency)
                 .mapToObj(i -> new Pair(number, objective))
                 .forEach(result::add);
     }
 
-    /**
-     * Obtiene los elementos ordenados y no duplicados del arreglo
-     *
-     * @param data el arreglo a analizar
-     * @return un arreglo con elementos no duplicados
-     */
-    private ArrayList<Integer> obtainValuesNoDuplicated(int[] data) {
-        return IntStream.of(data)
-                .boxed()
-                .distinct()
-                .sorted()
-                .collect(Collectors.toCollection(ArrayList::new));
+    @SuppressWarnings("ConstantConditions")
+    private int getFrequency(int number, int objective) {
+        int freqObj = ocurrences.replace(objective, 0);
+        int freqNum = ocurrences.get(number);
+        return objective != number ? freqObj * freqNum : IntStream.range(0, freqObj).sum();
     }
 
     /**

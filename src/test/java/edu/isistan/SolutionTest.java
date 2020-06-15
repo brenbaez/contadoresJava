@@ -1,24 +1,26 @@
 package edu.isistan;
 
 import edu.isistan.IProblemSolver.Pair;
-import edu.isistan.solutions.SolutionDevelopment;
-import edu.isistan.solutions.SolutionDevelopmentPrimitive;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
 
+/**
+ * Los test estan hechos suponiendo que en algun punto el data[] se ordena.
+ */
 public class SolutionTest {
 
     private IProblemSolver naive;
 
     @Before
     public void setup() {
-        naive = new SolutionDevelopment();
+        naive = new edu.isistan.solutions.SolutionDevelopment();
     }
 
     private void compareMaps(Map<Pair, Integer> pairsMap, Map<Pair, Integer> mapTest) {
