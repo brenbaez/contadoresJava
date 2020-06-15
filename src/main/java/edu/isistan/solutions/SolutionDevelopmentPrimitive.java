@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.stream.IntStream;
 
+import static org.apache.commons.math3.util.CombinatoricsUtils.factorial;
+
 public class SolutionDevelopmentPrimitive implements IProblemSolver {
 
     private Int2IntOpenHashMap ocurrences;
@@ -23,22 +25,24 @@ public class SolutionDevelopmentPrimitive implements IProblemSolver {
     public ArrayList<Pair> isSumIn(int[] data, int target) {
         fullfillOcurrences(data);
         IntArrayList elements = obtainValuesNoDuplicated(data);
-        elements.forEach(number -> calculatePairs(number, target));
+        elements.stream()
+                .filter(number -> number <= target/2)
+                .forEach(number -> calculatePairs(number, target - number));
         return result;
     }
 
-    private void calculatePairs(int number, int target) {
-        if (number > target) return;
-        int objective = target - number;
+    private void calculatePairs(int number, int objective) {
         if (!ocurrences.containsKey(objective)) return;
-        int frequency = ocurrences.get(objective);
+        int freqObj = ocurrences.get(objective);
+        int freqNum = ocurrences.get(number);
+        int frequency = objective != number ? freqObj * freqNum : (int) factorial(freqObj - 1);
         IntStream.range(0, frequency)
                 .mapToObj(i -> new Pair(number, objective))
                 .forEach(result::add);
     }
 
     /**
-     * Obtiene los elementos no duplicados del arreglo
+     * Obtiene los elementos ordenados y no duplicados del arreglo
      *
      * @param data el arreglo a analizar
      * @return un arreglo con elementos no duplicados
@@ -48,25 +52,19 @@ public class SolutionDevelopmentPrimitive implements IProblemSolver {
         IntOpenHashSet uniqueValues = new IntOpenHashSet();
         Arrays.stream(data)
                 .filter(uniqueValues::add)
-                .forEachOrdered(integers::add);
+                .forEach(integers::add);
+        integers.sort(null);
         return integers;
     }
 
     /**
-     * Reccorre el arreglo y por cada elemento lo mete al map contando la cantidad de ocurrencias del elemento
+     * Por cada elemento del arreglo, lo inserta/incrementa su ocurrencia en el mapa
      *
      * @param data el arreglo de enteros a analizar
      */
     private void fullfillOcurrences(int[] data) {
-        Arrays.stream(data, 0, data.length - 1).forEach(this::addOcurrence);
-    }
-
-    /**
-     * Suma un ocurrencia en el mapa, al numero pasado por parametro
-     *
-     * @param number el elemento a buscar en el mapa
-     */
-    private void addOcurrence(int number) {
-        ocurrences.put(number, ocurrences.getOrDefault(number, 0) + 1);
+        Arrays.stream(data)
+                .forEach(number -> ocurrences.put(number,
+                        ocurrences.getOrDefault(number, 0) + 1));
     }
 }
