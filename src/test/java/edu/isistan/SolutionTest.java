@@ -2,6 +2,7 @@ package edu.isistan;
 
 import edu.isistan.IProblemSolver.Pair;
 import edu.isistan.solutions.SolutionDevelopment;
+import edu.isistan.solutions.SolutionDevelopmentPrimitive;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -17,7 +18,7 @@ public class SolutionTest {
 
     @Before
     public void setup() {
-        naive = new SolutionDevelopment();
+        naive = new SolutionDevelopmentPrimitive();
     }
 
     private void compareMaps(Map<Pair, Integer> pairsMap, Map<Pair, Integer> mapTest) {
@@ -95,4 +96,19 @@ public class SolutionTest {
         compareMaps(loadMap(pairs), mapTest);
     }
 
+    @Test
+    public void solutionTest_5() {
+        int[] data = {1, 5, 7, 3};
+        int target = 8;
+        List<Pair> pairs = naive.isSumIn(data, target);
+
+        int size = 2;
+        assertEquals(pairs.size(), size);
+
+        Map<Pair, Integer> mapTest = new HashMap<>();
+        mapTest.put(new Pair(1, 7), 1);
+        mapTest.put(new Pair(3, 5), 1);
+
+        compareMaps(loadMap(pairs), mapTest);
+    }
 }
