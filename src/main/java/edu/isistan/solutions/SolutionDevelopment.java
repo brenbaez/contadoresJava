@@ -1,11 +1,9 @@
 package edu.isistan.solutions;
 
 import edu.isistan.IProblemSolver;
-import edu.isistan.IProblemSolver.Pair;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,52 +11,45 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class SolutionDevelopment implements IProblemSolver {
+
     private Map<Integer, Integer> ocurrences = new HashMap<>();
 
     @Override
-    public List<Pair> isSumIn(int [] data ,int target) {
-        List<Pair> result = new ArrayList<>();
+    public ArrayList<Pair> isSumIn(int[] data, int target) {
+        ArrayList<Pair> result = new ArrayList<>();
         fullfillOcurrences(data);
-        List<Integer> elements = obtainValuesNoDuplicated(data);
-
-        for (Integer number: elements) {
-            calculatePairs(number, target, result);
-        }
+        ArrayList<Integer> elements = obtainValuesNoDuplicated(data);
+        elements.forEach(number -> calculatePairs(number, target, result));
         return result;
     }
 
-    private void calculatePairs(Integer number, Integer target, List<Pair> result) {
-        if (number > target) return; // TODO: 6/14/2020 si number es mayor a target, no debe calcular naranj
-        Integer objective = calculateObjetive(number, target);
-        if(!ocurrences.containsKey(objective)) return;
+    private void calculatePairs(int number, int target, List<Pair> result) {
+        if (number > target) return;
+        int objective = target - number;
+        if (!ocurrences.containsKey(objective)) return;
         int frequency = ocurrences.get(objective);
         for (int i = 0; i < frequency; i++) {
             result.add(new Pair(number, objective));
         }
     }
 
-    private Integer calculateObjetive(Integer number, Integer target) {
-        return target - number;
-    }
-
-    private List<Integer> obtainValuesNoDuplicated(int[] data) {
+    private ArrayList<Integer> obtainValuesNoDuplicated(int[] data) {
         return IntStream.of(data)
                 .boxed()
-                .collect(Collectors.toList())
-                .stream()
                 .distinct()
                 .sorted()
-                .collect(Collectors.toList());
+                .collect(Collectors.toCollection(ArrayList::new));
     }
 
+    /**
+     * Reccorre el arreglo y por cada elemento lo mete al map contando la cantidad de ocurrencias del elemento
+     *
+     * @param data el arreglo de enteros a analizar
+     */
     private void fullfillOcurrences(int[] data) {
-        for (int i = 0; i < data.length -1; i++) { // TODO: 6/14/2020 chequear el length
-            Integer number = data[i];
-            if (!ocurrences.containsKey(number)) {
-                ocurrences.put(number, 1);
-            } else {
-                ocurrences.put(number, ocurrences.get(number) + 1);
-            }
+        for (int i = 0; i < data.length -1; i++) {
+            int number = data[i];
+            ocurrences.put(number, ocurrences.getOrDefault(number, 0) + 1);
         }
     }
 }

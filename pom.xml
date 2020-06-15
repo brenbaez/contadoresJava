@@ -33,5 +33,10 @@
       <version>3.8.1</version>
       <scope>test</scope>
     </dependency>
+    <dependency>
+      <groupId>fastutil</groupId>
+      <artifactId>fastutil</artifactId>
+      <version>5.0.9</version>
+    </dependency>
   </dependencies>
 </project>
