@@ -2,8 +2,6 @@ package edu.isistan;
 
 import edu.isistan.IProblemSolver.Pair;
 import edu.isistan.solutions.SolutionDevelopment;
-import edu.isistan.solutions.SolutionDevelopmentPrimitive;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -23,9 +21,7 @@ public class SolutionTest {
     }
 
     private void compareMaps(Map<Pair, Integer> pairsMap, Map<Pair, Integer> mapTest) {
-        pairsMap.forEach((pair, freq) -> {
-            assertEquals(mapTest.getOrDefault(pair, 0), freq);
-        });
+        pairsMap.forEach((pair, freq) -> assertEquals(mapTest.getOrDefault(pair, 0), freq));
     }
 
     private Map<Pair, Integer> loadMap(List<Pair> pairs) {
