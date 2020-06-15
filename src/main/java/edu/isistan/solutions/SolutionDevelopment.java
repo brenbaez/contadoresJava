@@ -24,7 +24,7 @@ public class SolutionDevelopment implements IProblemSolver {
         fullfillOcurrences(data);
         ArrayList<Integer> elements = obtainValuesNoDuplicated(data);
         elements.stream()
-                .filter(number -> number <= target/2)
+                .filter(number -> number <= target / 2)
                 .forEach(number -> calculatePairs(number, target - number));
         return result;
     }

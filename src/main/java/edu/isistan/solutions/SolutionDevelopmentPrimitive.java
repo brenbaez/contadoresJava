@@ -24,7 +24,7 @@ public class SolutionDevelopmentPrimitive implements IProblemSolver {
         fullfillOcurrences(data);
         IntArrayList elements = obtainValuesNoDuplicated(data);
         elements.stream()
-                .filter(number -> number <= target/2)
+                .filter(number -> number <= target / 2)
                 .forEach(number -> calculatePairs(number, target - number));
         return result;
     }
@@ -50,8 +50,8 @@ public class SolutionDevelopmentPrimitive implements IProblemSolver {
         IntOpenHashSet uniqueValues = new IntOpenHashSet();
         Arrays.stream(data)
                 .filter(uniqueValues::add)
+                .sorted()
                 .forEach(integers::add);
-        integers.sort(null);
         return integers;
     }
 
