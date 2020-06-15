@@ -9,8 +9,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.stream.IntStream;
 
-import static org.apache.commons.math3.util.CombinatoricsUtils.factorial;
-
 public class SolutionDevelopmentPrimitive implements IProblemSolver {
 
     private Int2IntOpenHashMap ocurrences;
@@ -35,7 +33,7 @@ public class SolutionDevelopmentPrimitive implements IProblemSolver {
         if (!ocurrences.containsKey(objective)) return;
         int freqObj = ocurrences.get(objective);
         int freqNum = ocurrences.get(number);
-        int frequency = objective != number ? freqObj * freqNum : (int) factorial(freqObj - 1);
+        int frequency = objective != number ? freqObj * freqNum : IntStream.range(0, freqObj).sum();
         IntStream.range(0, frequency)
                 .mapToObj(i -> new Pair(number, objective))
                 .forEach(result::add);
