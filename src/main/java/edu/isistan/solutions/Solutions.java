@@ -4,6 +4,7 @@ import edu.isistan.IProblemSolver;
 import edu.isistan.ProblemGen;
 import edu.isistan.IProblemSolver.Pair;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class Solutions {
@@ -12,9 +13,12 @@ public class Solutions {
 
         ProblemGen problemGen = new ProblemGen();
 
-        IProblemSolver naive = new SolutionDevelopment();
+        IProblemSolver naive = new SolutionDevelopmentPrimitive();
 
-        for (int i = 0; i < 20; i++) {
+        int repetitions = 20;
+        long[] times = new long[repetitions];
+
+        for (int i = 0; i < repetitions; i++) {
             problemGen.genRandomProblem(1000000);
 
             long start = System.currentTimeMillis(); //acá no está haciendo el warm up para empezar con el benchmarking!!
@@ -27,6 +31,11 @@ public class Solutions {
 
             start = System.currentTimeMillis() - start;
             System.out.printf("Tiempo total: %d%n", start);
+            times[i] = start;
         }
+
+        long sum = Arrays.stream(times).reduce(0, Long::sum);
+
+        System.out.printf("%nTiempo promedio: %d%n", sum / repetitions);
     }
 }
