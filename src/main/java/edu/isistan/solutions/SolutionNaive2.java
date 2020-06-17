@@ -12,7 +12,6 @@ public class SolutionNaive2 implements IProblemSolver {
     public List<Pair> isSumIn(int[] data, int sum) {
 
         List<Pair> pairs = new ArrayList<>();
-        Arrays.sort(data);
 
         IntStream.range(0, data.length)
                 .forEach(i -> IntStream.range(i + 1, data.length)

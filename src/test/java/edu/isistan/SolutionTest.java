@@ -11,9 +11,6 @@ import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
 
-/**
- * Los test estan hechos suponiendo que en algun punto el data[] se ordena.
- */
 public class SolutionTest {
 
     private IProblemSolver naive;
@@ -24,7 +21,13 @@ public class SolutionTest {
     }
 
     private void compareMaps(Map<Pair, Integer> pairsMap, Map<Pair, Integer> mapTest) {
-        pairsMap.forEach((pair, freq) -> assertEquals(mapTest.getOrDefault(pair, 0), freq));
+        pairsMap.forEach((pair, freq) -> {
+            if (pair.getI() != pair.getJ()) {
+                freq += pairsMap.getOrDefault(pair.reverse(), 0);
+            }
+            Integer freqTest =  mapTest.getOrDefault(pair, mapTest.getOrDefault(pair.reverse(), 0));
+            assertEquals(freqTest, freq);
+        });
     }
 
     private Map<Pair, Integer> loadMap(List<Pair> pairs) {

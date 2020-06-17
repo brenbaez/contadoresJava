@@ -23,6 +23,10 @@ public interface IProblemSolver {
             this.j = j;
         }
 
+        public Pair reverse() {
+            return new Pair(getJ(), getI());
+        }
+
         public int getI() {
             return i;
         }
