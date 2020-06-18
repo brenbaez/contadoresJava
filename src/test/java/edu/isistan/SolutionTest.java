@@ -4,7 +4,6 @@ import edu.isistan.IProblemSolver.Pair;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,7 +16,7 @@ public class SolutionTest {
 
     @Before
     public void setup() {
-        naive = new edu.isistan.solutions.SolutionDevelopment();
+        naive = new edu.isistan.solutions.SolutionDevelopmentBinarySearch();
     }
 
     private void compareMaps(Map<Pair, Integer> pairsMap, Map<Pair, Integer> mapTest) {
@@ -25,7 +24,7 @@ public class SolutionTest {
             if (pair.getI() != pair.getJ()) {
                 freq += pairsMap.getOrDefault(pair.reverse(), 0);
             }
-            Integer freqTest =  mapTest.getOrDefault(pair, mapTest.getOrDefault(pair.reverse(), 0));
+            Integer freqTest = mapTest.getOrDefault(pair, mapTest.getOrDefault(pair.reverse(), 0));
             assertEquals(freqTest, freq);
         });
     }
@@ -38,7 +37,7 @@ public class SolutionTest {
 
     @Test
     public void solutionTest_1() {
-        int[] data = {10, 12, 10, 15, -1, 7, 6, 5, 4, 2, 1, 1, 1};
+        int[] data = {10, 12, 10, 15, 11, -1, 7, 6, 5, 4, 2, 1, 1, 1};
         int target = 11;
         List<Pair> pairs = naive.isSumIn(data, target);
 
@@ -71,7 +70,7 @@ public class SolutionTest {
 
     @Test
     public void solutionTest_3() {
-        int[] data = {1, 5, 7, -1, 5};
+        int[] data = {1, 5, 7, 6, -1, 5};
         int target = 6;
         List<Pair> pairs = naive.isSumIn(data, target);
 

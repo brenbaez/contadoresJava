@@ -13,7 +13,7 @@ public class Solutions {
 
         ProblemGen problemGen = new ProblemGen();
 
-        IProblemSolver naive = new SolutionDevelopmentPrimitive();
+        IProblemSolver naive = new SolutionDevelopmentBinarySearch();
 
         int repetitions = 20;
         long[] times = new long[repetitions];
