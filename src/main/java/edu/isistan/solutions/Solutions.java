@@ -13,14 +13,14 @@ public class Solutions {
 
         ProblemGen problemGen = new ProblemGen();
 
-        IProblemSolver naive = new SolutionNaive();
+        IProblemSolver naive = new SolutionPrimitiveHashMapFastUtils();
 
         int repetitions = 50;
         long[] times = new long[repetitions];
 
         for (int i = 0; i < repetitions; i++) {
 
-            problemGen.genRandomProblem(100000);
+            problemGen.genRandomProblem(1000000);
             int[] data = problemGen.getData();
             int target = (int) (Math.random() * 2 * Integer.MAX_VALUE + Integer.MIN_VALUE / 2);
             System.out.printf("Nro iteracion: %d%n", i);

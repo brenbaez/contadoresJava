@@ -2,6 +2,7 @@ package edu.isistan;
 
 import edu.isistan.IProblemSolver.Pair;
 import edu.isistan.solutions.SolutionHashMap;
+import edu.isistan.solutions.SolutionPrimitiveHashMapFastUtils;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -17,7 +18,7 @@ public class SolutionTest {
 
     @Before
     public void setup() {
-        naive = new SolutionHashMap();
+        naive = new SolutionPrimitiveHashMapFastUtils();
     }
 
     private void compareMaps(Map<Pair, Integer> pairsMap, Map<Pair, Integer> mapTest) {

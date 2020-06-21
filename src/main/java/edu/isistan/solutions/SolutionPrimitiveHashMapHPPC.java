@@ -29,8 +29,8 @@ public class SolutionPrimitiveHashMapHPPC implements IProblemSolver {
 
     private void calculatePairs(int number, int objective) {
         if (!ocurrences.containsKey(objective) || ocurrences.get(objective) == 0) return;
-        int frequency = getFrequency(number, objective);
-        IntStream.range(0, frequency)
+        int quantityPairs = getFrequency(number, objective);
+        IntStream.range(0, quantityPairs)
                 .mapToObj(i -> new Pair(number, objective))
                 .forEach(result::add);
     }
