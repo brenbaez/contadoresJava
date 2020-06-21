@@ -18,7 +18,7 @@ public class SolutionTest {
 
     @Before
     public void setup() {
-        naive = new SolutionPrimitiveHashMapFastUtils();
+        naive = new SolutionHashMap();
     }
 
     private void compareMaps(Map<Pair, Integer> pairsMap, Map<Pair, Integer> mapTest) {

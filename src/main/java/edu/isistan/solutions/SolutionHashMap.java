@@ -5,7 +5,9 @@ import edu.isistan.IProblemSolver;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class SolutionHashMap implements IProblemSolver {
@@ -21,25 +23,41 @@ public class SolutionHashMap implements IProblemSolver {
     @Override
     public ArrayList<Pair> isSumIn(int[] data, int target) {
         fullfillOcurrences(data);
-        Arrays.stream(data)
-                .filter(number -> number <= target / 2)
-                .forEach(number -> calculatePairs(number, target - number));
+        List<Integer> listValues = obtainValuesNoDuplicated(data);
+        for (Integer number : listValues) {
+            if (number <= target / 2) {
+                calculatePairs(number, target - number);
+            }
+        }
         return result;
     }
 
-    private void calculatePairs(int number, int objective) {
-        if (!ocurrences.containsKey(objective) || ocurrences.get(objective) == 0) return;
-        int quantityPairs = getFrequency(number, objective);
-        IntStream.range(0, quantityPairs)
-                .mapToObj(i -> new Pair(number, objective))
-                .forEach(result::add);
+    private List<Integer> obtainValuesNoDuplicated(int[] data) {
+        return IntStream.of(data)
+                .boxed()
+                .distinct()
+                .sorted()
+                .collect(Collectors.toList());
     }
 
-    @SuppressWarnings("ConstantConditions")
+    private void calculatePairs(int number, int objective) {
+        if (!ocurrences.containsKey(objective)) return;
+        int quantityPairs = getFrequency(number, objective);
+        ArrayList<Pair> pairs = result;
+        for (int i = 0; i < quantityPairs; i++) {
+            pairs.add(new Pair(number, objective));
+        }
+    }
+
     private int getFrequency(int number, int objective) {
-        int freqObj = ocurrences.replace(objective, 0);
+        int freqObj = ocurrences.get(objective);
         int freqNum = ocurrences.get(number);
-        return objective != number ? freqObj * freqNum : IntStream.range(0, freqObj).sum();
+        if (objective != number) return freqObj * freqNum;
+        int sum = 0;
+        for (int i = 0; i < freqObj; i++) {
+            sum += i;
+        }
+        return sum;
     }
 
     /**
@@ -48,8 +66,9 @@ public class SolutionHashMap implements IProblemSolver {
      * @param data el arreglo de enteros a analizar
      */
     private void fullfillOcurrences(int[] data) {
-        Arrays.stream(data)
-                .forEach(number -> ocurrences.put(number,
-                        ocurrences.getOrDefault(number, 0) + 1));
+        for (int number : data) {
+            int frequency = ocurrences.getOrDefault(number, 0);
+            ocurrences.put(number, frequency + 1);
+        }
     }
 }

@@ -13,7 +13,7 @@ public class Solutions {
 
         ProblemGen problemGen = new ProblemGen();
 
-        IProblemSolver naive = new SolutionPrimitiveHashMapFastUtils();
+        IProblemSolver naive = new SolutionHashMap();
 
         int repetitions = 50;
         long[] times = new long[repetitions];
