@@ -8,12 +8,12 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.IntStream;
 
-public class SolutionDevelopment implements IProblemSolver {
+public class SolutionHashMap implements IProblemSolver {
 
     private Map<Integer, Integer> ocurrences;
     private ArrayList<Pair> result;
 
-    public SolutionDevelopment() {
+    public SolutionHashMap() {
         ocurrences = new HashMap<>();
         result = new ArrayList<>();
     }

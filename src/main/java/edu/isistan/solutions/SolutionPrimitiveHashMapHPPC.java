@@ -1,21 +1,20 @@
 package edu.isistan.solutions;
 
-import com.google.common.collect.Maps;
+import com.carrotsearch.hppc.IntIntHashMap;
 import edu.isistan.IProblemSolver;
 import gnu.trove.map.hash.TIntIntHashMap;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Map;
 import java.util.stream.IntStream;
 
-public class SolutionDevelopmentPrimitiveGuava implements IProblemSolver {
+public class SolutionPrimitiveHashMapHPPC implements IProblemSolver {
 
-    private Map<Integer, Integer> ocurrences;
+    private IntIntHashMap ocurrences;
     private ArrayList<Pair> result;
 
-    public SolutionDevelopmentPrimitiveGuava() {
-        ocurrences = Maps.newHashMap();
+    public SolutionPrimitiveHashMapHPPC() {
+        ocurrences = new IntIntHashMap();
         result = new ArrayList<>();
     }
 
@@ -50,7 +49,6 @@ public class SolutionDevelopmentPrimitiveGuava implements IProblemSolver {
      */
     private void fullfillOcurrences(int[] data) {
         Arrays.stream(data)
-                .forEach(number -> ocurrences.put(number,
-                        ocurrences.getOrDefault(number, 0) + 1));
+                .forEach(number -> ocurrences.put(number, ocurrences.get(number) + 1));
     }
 }

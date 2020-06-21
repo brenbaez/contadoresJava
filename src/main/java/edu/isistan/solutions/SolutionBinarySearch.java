@@ -6,11 +6,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.stream.IntStream;
 
-public class SolutionDevelopmentBinarySearch implements IProblemSolver {
+public class SolutionBinarySearch implements IProblemSolver {
 
     private ArrayList<Pair> result;
 
-    public SolutionDevelopmentBinarySearch() {
+    public SolutionBinarySearch() {
         result = new ArrayList<>();
     }
 

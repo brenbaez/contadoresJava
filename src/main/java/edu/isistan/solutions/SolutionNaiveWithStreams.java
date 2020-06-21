@@ -7,7 +7,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.IntStream;
 
-public class SolutionNaive2 implements IProblemSolver {
+public class SolutionNaiveWithStreams implements IProblemSolver {
 
     public List<Pair> isSumIn(int[] data, int sum) {
 

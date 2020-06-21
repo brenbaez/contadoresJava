@@ -1,19 +1,21 @@
 package edu.isistan.solutions;
 
+import com.google.common.collect.Maps;
 import edu.isistan.IProblemSolver;
 import gnu.trove.map.hash.TIntIntHashMap;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Map;
 import java.util.stream.IntStream;
 
-public class SolutionDevelopmentPrimitiveTrove4j implements IProblemSolver {
+public class SolutionHashMapGuava implements IProblemSolver {
 
-    private TIntIntHashMap ocurrences;
+    private Map<Integer, Integer> ocurrences;
     private ArrayList<Pair> result;
 
-    public SolutionDevelopmentPrimitiveTrove4j() {
-        ocurrences = new TIntIntHashMap();
+    public SolutionHashMapGuava() {
+        ocurrences = Maps.newHashMap();
         result = new ArrayList<>();
     }
 
@@ -48,6 +50,7 @@ public class SolutionDevelopmentPrimitiveTrove4j implements IProblemSolver {
      */
     private void fullfillOcurrences(int[] data) {
         Arrays.stream(data)
-                .forEach(number -> ocurrences.put(number, ocurrences.get(number) + 1));
+                .forEach(number -> ocurrences.put(number,
+                        ocurrences.getOrDefault(number, 0) + 1));
     }
 }

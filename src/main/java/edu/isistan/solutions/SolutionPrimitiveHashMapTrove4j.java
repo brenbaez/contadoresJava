@@ -1,19 +1,19 @@
 package edu.isistan.solutions;
 
 import edu.isistan.IProblemSolver;
-import it.unimi.dsi.fastutil.ints.Int2IntOpenHashMap;
+import gnu.trove.map.hash.TIntIntHashMap;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.stream.IntStream;
 
-public class SolutionDevelopmentPrimitive implements IProblemSolver {
+public class SolutionPrimitiveHashMapTrove4j implements IProblemSolver {
 
-    private Int2IntOpenHashMap ocurrences;
+    private TIntIntHashMap ocurrences;
     private ArrayList<Pair> result;
 
-    public SolutionDevelopmentPrimitive() {
-        ocurrences = new Int2IntOpenHashMap();
+    public SolutionPrimitiveHashMapTrove4j() {
+        ocurrences = new TIntIntHashMap();
         result = new ArrayList<>();
     }
 
@@ -34,9 +34,9 @@ public class SolutionDevelopmentPrimitive implements IProblemSolver {
                 .forEach(result::add);
     }
 
-    @SuppressWarnings("ConstantConditions")
     private int getFrequency(int number, int objective) {
-        int freqObj = ocurrences.replace(objective, 0);
+        int freqObj = ocurrences.get(objective);
+        ocurrences.put(objective, 0);
         int freqNum = ocurrences.get(number);
         return objective != number ? freqObj * freqNum : IntStream.range(0, freqObj).sum();
     }
@@ -48,7 +48,6 @@ public class SolutionDevelopmentPrimitive implements IProblemSolver {
      */
     private void fullfillOcurrences(int[] data) {
         Arrays.stream(data)
-                .forEach(number -> ocurrences.put(number,
-                        ocurrences.getOrDefault(number, 0) + 1));
+                .forEach(number -> ocurrences.put(number, ocurrences.get(number) + 1));
     }
 }
