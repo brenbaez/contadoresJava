@@ -1,8 +1,6 @@
 package edu.isistan;
 
 import edu.isistan.IProblemSolver.Pair;
-import edu.isistan.solutions.SolutionHashMap;
-import edu.isistan.solutions.SolutionPrimitiveHashMapFastUtils;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -18,7 +16,7 @@ public class SolutionTest {
 
     @Before
     public void setup() {
-        naive = new SolutionHashMap();
+        naive = new edu.isistan.solutions.SolutionHashMap();
     }
 
     private void compareMaps(Map<Pair, Integer> pairsMap, Map<Pair, Integer> mapTest) {
@@ -144,6 +142,22 @@ public class SolutionTest {
 
         Map<Pair, Integer> mapTest = new HashMap<>();
         mapTest.put(new Pair(1, 1), 15);
+
+        compareMaps(loadMap(pairs), mapTest);
+    }
+
+    @Test
+    public void solutionTest_8() {
+        int[] data = {1, 1, 2, 2, 2, 3};
+        int target = 4;
+        List<Pair> pairs = naive.isSumIn(data, target);
+
+        int size = 5;
+        assertEquals(pairs.size(), size);
+
+        Map<Pair, Integer> mapTest = new HashMap<>();
+        mapTest.put(new Pair(1, 3), 2);
+        mapTest.put(new Pair(2, 2), 3);
 
         compareMaps(loadMap(pairs), mapTest);
     }
